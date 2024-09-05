@@ -16,7 +16,7 @@ This project automates the comparison of SEO metadata between a staging site and
 
 ### Prerequisites
 
-- Python 3.x
+- Python 3.11
 - Playwright
 - Pandas
 - Openpyxl
