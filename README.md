@@ -10,7 +10,6 @@ This project automates the comparison of SEO metadata between a staging site and
 - [Styling Reports](#styling-reports)
 - [Running the Tests](#running-the-tests)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
