@@ -270,7 +270,7 @@ class SEOService:
         with pd.ExcelWriter(f"{excel_report_dct}/{brand_name}_SEO_&_Response_Check_report.xlsx") as writer:
             df_comparison.to_excel(writer, sheet_name='ComparisonResults', index=False)
             df_stage.to_excel(writer, sheet_name='Stage_SEO_Data', index=False)
-            df_production.to_excel(writer, sheet_name='Canvas_Prod_SEO_Data', index=False)
+            df_production.to_excel(writer, sheet_name='Prod_SEO_Data', index=False)
 
         print('HTML report generation start\n')
         html_report_dct = f"Report/{brand_name}_Report/{brand_name}_html_general_Report"
