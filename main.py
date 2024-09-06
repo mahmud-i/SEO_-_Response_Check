@@ -7,6 +7,7 @@ from services.seo_service import SEOService
 def main():
     file_path = input("Enter your .csv file path where all urls are listed for check(ex: a/b/c/df.csv): ")
     urls_to_check = get_urls_from_csv(file_path)
+    #urls_to_check =  [input("Please write the URL: "),]
     prod_domain_url = input("Please write the PROD site Domain Link: ")
     stage_domain_url = input("Please write the Staging site Domain Link: ")
 
