@@ -26,7 +26,7 @@ class DataFrameStyler:
             return 'background-color: #E31C25; color: white; font-weight: bold;'
         elif val == 'Items Not Found':
             return 'background-color: #EFDAF7; color: white; font-weight: bold;'
-        elif val == 'Only in Staging':
+        elif val == 'Only in Prod':
             return 'background-color: #ADD8E6; color: black; font-weight: bold;'
         elif val == 'Match':
             return 'background-color: #C9F2C7; color: black; font-weight: bold;'

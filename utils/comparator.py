@@ -17,7 +17,7 @@ def compare_seo_data(staging_data, production_data):
         elif production_data[key] is None and staging_data[key] is None:
             result[key] = 'Both Null'
         elif staging_data[key] is None:
-            result[key] = 'Only in Staging'
+            result[key] = 'Only in Prod'
         elif staging_data[key] != production_data[key]:
             result[key] = 'Not Matched'
         else:
