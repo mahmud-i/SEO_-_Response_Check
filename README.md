@@ -101,6 +101,9 @@ Reports are styled using the `DataFrameStyler` class, which highlights differenc
 - **Red:** Non-matching data
 - **Green:** Matching data
 - **Orange:** Both staging and production have missing data
+- **Shade of Purple:** missing items on which you want to check
+- **Light Blue:** Only having data on which you want to check
+
 
 ## Running the Tests
 

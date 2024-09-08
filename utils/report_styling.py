@@ -28,27 +28,31 @@ class DataFrameStyler:
             return 'background-color: #EFDAF7; color: white; font-weight: bold;'
         elif val == 'Only in Prod':
             return 'background-color: #ADD8E6; color: black; font-weight: bold;'
+        elif val == 'Only in Stage':
+            return 'background-color: #ADD8E6; color: black; font-weight: bold;'
         elif val == 'Match':
             return 'background-color: #C9F2C7; color: black; font-weight: bold;'
         else:
             return None
 
-    @staticmethod
-    def highlight_urls(val):
-        return 'background-color: white; color: blue;' if val else None
-
-
     def apply_styling_comparison_report(self):
-        print('apply_styling_comparison_report start\n')
+        def convert_to_url(cell):
+            return f'<a href="{cell}" target="_blank">{cell}</a>' if cell else None
+
+        self.df['URL'] = self.df['URL'].apply(convert_to_url)
+        self.df['Staging URL'] = self.df['Staging URL'].apply(convert_to_url)
         self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
-                        .map(self.highlight_cells) \
-                        .map(self.highlight_urls, subset=['URL', 'Staging URL'])
-        print('apply_styling_comparison_report end\n')
+                        .map(self.highlight_cells)\
+
 
     def apply_styling_data_report(self):
-        self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
-                        .map(self.highlight_urls, subset=['URL'])
+        def convert_to_url(cell):
+            return f'<a href="{cell}" target="_blank">{cell}</a>' if cell else None
 
+        self.df['URL'] = self.df['URL'].apply(convert_to_url)
+        self.df['canonical link'] = self.df['canonical link'].apply(convert_to_url)
+        self.df['og:url'] = self.df['og:url'].apply(convert_to_url)
+        self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
 
     def generate_style_report(self, file_path):
         if self.styled_df is None:
