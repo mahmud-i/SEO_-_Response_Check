@@ -33,20 +33,26 @@ class DataFrameStyler:
         else:
             return None
 
-    @staticmethod
-    def highlight_urls(val):
-        return 'background-color: white; color: blue;' if val else None
-
 
     def apply_styling_comparison_report(self):
+        def convert_to_url(cell):
+            return f'<a href="{cell}" target="_blank">{cell}</a>' if cell else None
+
+        self.df['URL'] = self.df['URL'].apply(convert_to_url)
+        self.df['Staging URL'] = self.df['Staging URL'].apply(convert_to_url)
         self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
-                        .map(self.highlight_cells) \
-                        .map(self.highlight_urls, subset=['URL', 'Staging URL'])
-        
+                        .map(self.highlight_cells)\
+
 
     def apply_styling_data_report(self):
+        def convert_to_url(cell):
+            return f'<a href="{cell}" target="_blank">{cell}</a>' if cell else None
+
+        self.df['URL'] = self.df['URL'].apply(convert_to_url)
+        self.df['canonical link'] = self.df['canonical link'].apply(convert_to_url)
+        self.df['og:url'] = self.df['og:url'].apply(convert_to_url)
         self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
-                        .map(self.highlight_urls, subset=['URL'])
+
 
 
     def generate_style_report(self, file_path):
