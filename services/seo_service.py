@@ -2,8 +2,6 @@
 
 import os
 import pandas as pd
-from numpy.distutils.system_info import dfftw_info
-from ydata_profiling import ProfileReport
 from http.client import responses
 from playwright.sync_api import sync_playwright
 from pages.seo_page import SEOPage
@@ -218,7 +216,6 @@ class SEOService:
                           if page_ss == 'Y':
                             stage_seo_page.get_stage_ss(stage_url, stage_domain_url, brand_name)
 
-
                     row = {'URL': url, 'Staging URL': stage_url}
                     for key, value in differences.items():
                         row[f"{key}"] = value
@@ -279,24 +276,6 @@ class SEOService:
         df_comparison.to_html(f"{html_report_dct}/{brand_name}_SEO_&_Response_Comparison_Results_Report.html", index=False)
         df_stage.to_html(f"{html_report_dct}/{brand_name}_Stage_SEO_&_Response_Data_Report.html", index=False)
         df_production.to_html(f"{html_report_dct}/{brand_name}_Production_SEO_&_Response_Data_Report.html", index=False)
-
-        print('HTML report profiling start\n')
-        comparison_report = ProfileReport(df_comparison, title="Comparison Results Report", explorative=True)
-        stage_report = ProfileReport(df_stage, title="Stage SEO Data Report", explorative=True)
-        production_report = ProfileReport(df_production, title="Production SEO Data Report", explorative=True)
-
-        print('HTML Profile report generation start\n')
-        profile_report_dct = f"Report/{brand_name}_Report/{brand_name}_Data_Profiling_Report"
-        os.makedirs(profile_report_dct, exist_ok=True)
-
-        comparison_path = f"{profile_report_dct}/{brand_name}_SEO_&_Response_Comparison_Results_details_Report.html"
-        comparison_report.to_file(comparison_path)
-        stage_path = f"{profile_report_dct}/{brand_name}_Stage_SEO_&_Response_Data_details_Report.html"
-        stage_report.to_file(stage_path)
-        prod_path = f"{profile_report_dct}/{brand_name}_PROD_SEO_&_Response_Data_details_Report.html"
-        production_report.to_file(prod_path)
-
-
 
         style_report_dct = f"Report/{brand_name}_Report/{brand_name}_Style_HTML_Report"
         os.makedirs(style_report_dct, exist_ok=True)
