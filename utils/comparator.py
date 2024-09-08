@@ -45,4 +45,4 @@ def compare_seo_data_stage(production_data, stage_data):
     return compare(production_data, stage_data,"Stage")
 
 def compare_seo_data_prod(stage_data, production_data):
-    return compare(stage_data, production_data, "Stage")
+    return compare(stage_data, production_data, "Prod")
