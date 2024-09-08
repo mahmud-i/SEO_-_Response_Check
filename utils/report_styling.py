@@ -39,11 +39,10 @@ class DataFrameStyler:
 
 
     def apply_styling_comparison_report(self):
-        print('apply_styling_comparison_report start\n')
         self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
                         .map(self.highlight_cells) \
                         .map(self.highlight_urls, subset=['URL', 'Staging URL'])
-        print('apply_styling_comparison_report end\n')
+        
 
     def apply_styling_data_report(self):
         self.styled_df = self.df.style.set_table_styles([self.add_cell_borders()]+self.highlight_header())\
