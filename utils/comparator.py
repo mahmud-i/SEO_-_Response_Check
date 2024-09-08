@@ -1,36 +1,36 @@
 # utils/comparator.py
 
-def compare_seo_data(staging_data, production_data):
+def compare(data_for_check, data_have_to_check, state):
     result = {}
     meta_title = 'title'
     meta_description = 'description'
 
-    for key in staging_data.keys():
+    for key in data_for_check.keys():
         if key == 'title':
-            meta_title = production_data[key]
+            meta_title = data_have_to_check[key]
         if key == 'meta description':
-            meta_description = production_data[key]
+            meta_description = data_have_to_check[key]
 
 
-        if key not in production_data :
+        if key not in data_have_to_check :
             result[key] = 'Items Not Found'
-        elif production_data[key] is None and staging_data[key] is None:
+        elif data_have_to_check[key] is None and data_for_check[key] is None:
             result[key] = 'Both Null'
-        elif staging_data[key] is None:
-            result[key] = 'Only in Prod'
-        elif staging_data[key] != production_data[key]:
+        elif data_for_check[key] is None:
+            result[key] = f'Only in {state}'
+        elif data_for_check[key] != data_have_to_check[key]:
             result[key] = 'Not Matched'
         else:
             result[key] = 'Match'
 
 
-        if key == 'og:title' and production_data[key] == meta_title and result[key] == 'Not Matched' :
+        if key == 'og:title' and data_have_to_check[key] == meta_title and result[key] == 'Not Matched' :
            result[key] = 'Match'
-        if key == 'twitter:title' and production_data[key] == meta_title and result[key] == 'Not Matched' :
+        if key == 'twitter:title' and data_have_to_check[key] == meta_title and result[key] == 'Not Matched' :
            result[key] = 'Match'
-        if key == 'og:description' and production_data[key] == meta_description and result[key] == 'Not Matched' :
+        if key == 'og:description' and data_have_to_check[key] == meta_description and result[key] == 'Not Matched' :
            result[key] = 'Match'
-        if key == 'twitter:description' and production_data[key] == meta_description and result[key] == 'Not Matched' :
+        if key == 'twitter:description' and data_have_to_check[key] == meta_description and result[key] == 'Not Matched' :
            result[key] = 'Match'
 
 
@@ -40,3 +40,9 @@ def compare_seo_data(staging_data, production_data):
         return {key: 'No Data Found' for key in result.keys()}
 
     return result
+
+def compare_seo_data_stage(production_data, stage_data):
+    return compare(production_data, stage_data,"Stage")
+
+def compare_seo_data_prod(stage_data, production_data):
+    return compare(stage_data, production_data, "Stage")

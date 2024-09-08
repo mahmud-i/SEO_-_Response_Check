@@ -5,7 +5,7 @@ import pandas as pd
 from http.client import responses
 from playwright.sync_api import sync_playwright
 from pages.seo_page import SEOPage
-from utils.comparator import compare_seo_data
+from utils.comparator import compare_seo_data_prod, compare_seo_data_stage
 from utils.report_styling import DataFrameStyler
 
 
@@ -203,7 +203,7 @@ class SEOService:
                     if prod_tech == 'Y' :
                           prod_seo_data = SEOService.fetch_dxp_seo_data(prod_seo_page, prod_status)
                           print(f"Prod_SEO Data: {prod_seo_data}\n")
-                          differences = compare_seo_data(stage_seo_data, prod_seo_data)
+                          differences = compare_seo_data_prod(stage_seo_data, prod_seo_data)
                           print(f"comparison: {differences}\n")
                           if page_ss == 'Y':
                             prod_seo_page.get_prod_ss(url, prod_domain_url, brand_name)
@@ -211,7 +211,7 @@ class SEOService:
                     else :
                           prod_seo_data = SEOService.fetch_canvas_seo_data(prod_seo_page, prod_status)
                           print(f"Prod_SEO Data: {prod_seo_data}\n")
-                          differences = compare_seo_data(prod_seo_data, stage_seo_data)
+                          differences = compare_seo_data_stage(prod_seo_data, stage_seo_data)
                           print(f"comparison: {differences}\n")
                           if page_ss == 'Y':
                             stage_seo_page.get_stage_ss(stage_url, stage_domain_url, brand_name)
@@ -294,4 +294,4 @@ class SEOService:
         styler_stage = DataFrameStyler(df_stage)
         styler_stage.apply_styling_data_report()
         styler_stage.generate_style_report(f"{style_report_dct}/{brand_name}_Stage_SEO_&_Response_Data_details_Report.html")
-        print('All task Done\n\n')
+        print(f"All SEO & Page Response data checking and Report creation is done for {brand_name}.\n\n")
